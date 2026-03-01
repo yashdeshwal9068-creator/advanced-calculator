@@ -1,25 +1,52 @@
+// Display reference
+const display = document.getElementById("display");
+const historyList = document.getElementById("historyList");
+
+// Sound effect
+const clickSound = new Audio("https://www.soundjay.com/buttons/sounds/button-16.mp3");
+
+// Play sound on every button click
+document.addEventListener("click", function(e) {
+    if (e.target.tagName === "BUTTON") {
+        clickSound.currentTime = 0;
+        clickSound.play();
+    }
+});
+
+// Append values
 function append(value) {
-    document.getElementById("display").value += value;
+    display.value += value;
 }
 
+// Clear display
 function clearDisplay() {
-    document.getElementById("display").value = "";
+    display.value = "";
 }
 
+// Delete last character
 function deleteLast() {
-    let current = document.getElementById("display").value;
-    document.getElementById("display").value = current.slice(0, -1);
+    display.value = display.value.slice(0, -1);
 }
 
+// Calculate result
 function calculate() {
     try {
-        let expression = document.getElementById("display").value
-            .replace(/÷/g, "/")
-            .replace(/×/g, "*");
+        let expression = display.value; and it
 
         let result = eval(expression);
-        document.getElementById("display").value = result;
+
+        // Add to history
+        let listItem = document.createElement("li");
+        listItem.textContent = expression + " = " + result;
+        historyList.appendChild(listItem);
+
+        display.value = result;
     } catch {
-        document.getElementById("display").value = "Error";
+        display.value = "Error";
     }
 }
+
+// Dark / Light mode toggle
+function toggleMode() {
+    document.body.classList.toggle("light-mode");
+}￼Enter
